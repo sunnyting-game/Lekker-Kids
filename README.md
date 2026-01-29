@@ -1,6 +1,6 @@
 ![Lekker Kids Demo](docs/LekkerKids.gif)
 
-# Lekker Kids
+# Lekker Kids: A Multi-tenant SaaS for Daycare Operations
 
 A multi-tenant daycare management system MVP, built to explore real-world authorization, data isolation, and operational scalability challenges.
 This project is preserved as an engineering portfolio piece.
