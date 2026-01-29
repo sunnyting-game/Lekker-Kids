@@ -1,0 +1,89 @@
+﻿Analyzing Inner Garden...                                       
+
+   info - Don't invoke 'print' in production code - lib\providers\auth_provider.dart:37:7 - avoid_print
+   info - Don't invoke 'print' in production code - lib\providers\auth_provider.dart:40:7 - avoid_print
+   info - Don't invoke 'print' in production code - lib\providers\auth_provider.dart:51:7 - avoid_print
+warning - The operand can't be 'null', so the condition is always 'true' - lib\screens\admin\create_teacher_page.dart:44:18 - unnecessary_null_comparison
+   info - Don't invoke 'print' in production code - lib\screens\login_page.dart:31:7 - avoid_print
+   info - Don't invoke 'print' in production code - lib\screens\login_page.dart:32:7 - avoid_print
+   info - Don't invoke 'print' in production code - lib\screens\login_page.dart:39:7 - avoid_print
+   info - Don't invoke 'print' in production code - lib\screens\login_page.dart:40:7 - avoid_print
+   info - Don't invoke 'print' in production code - lib\screens\login_page.dart:44:9 - avoid_print
+warning - Unused import: '../../../constants/app_strings.dart' - lib\screens\portals\student\parent_chat_tab.dart:3:8 - unused_import
+   info - 'value' is deprecated and shouldn't be used. Use initialValue instead. This will set the initial value for the form field. This feature was deprecated after v3.33.0-1.0.pre - lib\screens\portals\teacher\weekly_plan\widgets\add_plan_dialog.dart:129:17 - deprecated_member_use
+warning - Unused import: '../../../utils/week_utils.dart' - lib\screens\portals\teacher\weekly_plan_tab.dart:7:8 - unused_import
+   info - Don't invoke 'print' in production code - lib\services\auth_service.dart:30:7 - avoid_print
+   info - Don't invoke 'print' in production code - lib\services\auth_service.dart:38:7 - avoid_print
+   info - Don't invoke 'print' in production code - lib\services\auth_service.dart:47:7 - avoid_print
+   info - Don't invoke 'print' in production code - lib\services\auth_service.dart:50:7 - avoid_print
+   info - Don't invoke 'print' in production code - lib\services\auth_service.dart:58:7 - avoid_print
+   info - Don't invoke 'print' in production code - lib\services\auth_service.dart:61:7 - avoid_print
+   info - Don't invoke 'print' in production code - lib\services\auth_service.dart:62:7 - avoid_print
+   info - Don't invoke 'print' in production code - lib\services\auth_service.dart:66:9 - avoid_print
+   info - Don't invoke 'print' in production code - lib\services\auth_service.dart:71:7 - avoid_print
+   info - Don't invoke 'print' in production code - lib\services\auth_service.dart:74:7 - avoid_print
+   info - Use 'rethrow' to rethrow a caught exception - lib\services\auth_service.dart:76:9 - use_rethrow_when_possible
+   info - Don't invoke 'print' in production code - lib\services\auth_service.dart:84:5 - avoid_print
+   info - Don't invoke 'print' in production code - lib\services\chat_service.dart:141:7 - avoid_print
+   info - Don't invoke 'print' in production code - lib\services\chat_service.dart:166:7 - avoid_print
+   info - Don't invoke 'print' in production code - lib\services\cloud_functions_service.dart:20:7 - avoid_print
+   info - Don't invoke 'print' in production code - lib\services\cloud_functions_service.dart:21:7 - avoid_print
+   info - Don't invoke 'print' in production code - lib\services\cloud_functions_service.dart:32:7 - avoid_print
+   info - Don't invoke 'print' in production code - lib\services\cloud_functions_service.dart:44:7 - avoid_print
+   info - Don't invoke 'print' in production code - lib\services\cloud_functions_service.dart:47:7 - avoid_print
+   info - Don't invoke 'print' in production code - lib\services\cloud_functions_service.dart:76:7 - avoid_print
+   info - Don't invoke 'print' in production code - lib\services\cloud_functions_service.dart:87:7 - avoid_print
+   info - Don't invoke 'print' in production code - lib\services\cloud_functions_service.dart:89:7 - avoid_print
+   info - Don't invoke 'print' in production code - lib\services\cloud_functions_service.dart:92:7 - avoid_print
+warning - Unused import: 'dart:typed_data' - lib\services\photo_service.dart:2:8 - unused_import
+   info - The import of 'package:image_picker/image_picker.dart' is unnecessary because all of the used elements are also provided by the import of 'package:flutter_image_compress/flutter_image_compress.dart' - lib\services\photo_service.dart:7:8 - unnecessary_import
+   info - The member 'uploadStudentPhoto' overrides an inherited member but isn't annotated with '@override' - lib\services\photo_service.dart:56:18 - annotate_overrides
+   info - Don't invoke 'print' in production code - lib\services\photo_service.dart:63:7 - avoid_print
+   info - Don't invoke 'print' in production code - lib\services\photo_service.dart:70:7 - avoid_print
+   info - Don't invoke 'print' in production code - lib\services\photo_service.dart:75:9 - avoid_print
+   info - Don't invoke 'print' in production code - lib\services\photo_service.dart:80:9 - avoid_print
+   info - Don't invoke 'print' in production code - lib\services\photo_service.dart:92:9 - avoid_print
+   info - Don't invoke 'print' in production code - lib\services\photo_service.dart:95:9 - avoid_print
+   info - Don't invoke 'print' in production code - lib\services\photo_service.dart:97:9 - avoid_print
+   info - Don't invoke 'print' in production code - lib\services\photo_service.dart:101:9 - avoid_print
+   info - Don't invoke 'print' in production code - lib\services\photo_service.dart:110:7 - avoid_print
+   info - Don't invoke 'print' in production code - lib\services\photo_service.dart:114:7 - avoid_print
+   info - Don't invoke 'print' in production code - lib\services\photo_service.dart:117:7 - avoid_print
+   info - Don't invoke 'print' in production code - lib\services\photo_service.dart:125:7 - avoid_print
+   info - Don't invoke 'print' in production code - lib\services\photo_service.dart:128:7 - avoid_print
+   info - Don't invoke 'print' in production code - lib\services\photo_service.dart:130:7 - avoid_print
+   info - Don't invoke 'print' in production code - lib\services\photo_service.dart:134:7 - avoid_print
+   info - Don't invoke 'print' in production code - lib\services\photo_service.dart:135:7 - avoid_print
+   info - Don't invoke 'print' in production code - lib\services\photo_service.dart:157:7 - avoid_print
+   info - The member 'deletePhoto' overrides an inherited member but isn't annotated with '@override' - lib\services\photo_service.dart:187:16 - annotate_overrides
+   info - Don't invoke 'print' in production code - lib\services\photo_service.dart:220:7 - avoid_print
+   info - The member 'getPhotosByDateStream' overrides an inherited member but isn't annotated with '@override' - lib\services\photo_service.dart:226:51 - annotate_overrides
+   info - The member 'deleteOldPhotos' overrides an inherited member but isn't annotated with '@override' - lib\services\photo_service.dart:278:16 - annotate_overrides
+   info - Don't invoke 'print' in production code - lib\services\photo_service.dart:309:17 - avoid_print
+   info - Don't invoke 'print' in production code - lib\services\photo_service.dart:319:7 - avoid_print
+   info - Don't invoke 'print' in production code - lib\services\weekly_plan_service.dart:46:7 - avoid_print
+   info - Don't invoke 'print' in production code - lib\services\weekly_plan_service.dart:56:7 - avoid_print
+   info - Don't invoke 'print' in production code - lib\services\weekly_plan_service.dart:81:7 - avoid_print
+warning - The value of the field '_authService' isn't used - lib\utils\create_test_accounts.dart:22:21 - unused_field
+warning - The operand can't be 'null', so the condition is always 'true' - lib\viewmodels\admin\create_student_view_model.dart:66:16 - unnecessary_null_comparison
+warning - Dead code - lib\viewmodels\admin\create_student_view_model.dart:89:7 - dead_code
+   info - The import of 'dart:typed_data' is unnecessary because all of the used elements are also provided by the import of 'package:flutter/foundation.dart' - lib\widgets\admin\avatar_picker_widget.dart:3:8 - unnecessary_import
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\widgets\chat_window.dart:183:39 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\widgets\chat_window.dart:267:39 - deprecated_member_use
+   info - 'withOpacity' is deprecated and shouldn't be used. Use .withValues() to avoid precision loss - lib\widgets\chat_window.dart:302:47 - deprecated_member_use
+   info - Don't invoke 'print' in production code - lib\widgets\photo_upload_helper.dart:79:7 - avoid_print
+   info - Don't invoke 'print' in production code - lib\widgets\photo_upload_helper.dart:93:9 - avoid_print
+   info - Don't invoke 'print' in production code - lib\widgets\photo_upload_helper.dart:97:7 - avoid_print
+   info - Don't invoke 'print' in production code - lib\widgets\photo_upload_helper.dart:112:9 - avoid_print
+   info - Don't invoke 'print' in production code - lib\widgets\photo_upload_helper.dart:115:7 - avoid_print
+   info - Don't invoke 'print' in production code - lib\widgets\photo_upload_helper.dart:140:5 - avoid_print
+   info - Don't invoke 'print' in production code - lib\widgets\photo_upload_helper.dart:162:15 - avoid_print
+   info - Don't invoke 'print' in production code - lib\widgets\photo_upload_helper.dart:169:15 - avoid_print
+   info - Don't invoke 'print' in production code - lib\widgets\photo_upload_helper.dart:197:5 - avoid_print
+   info - Don't invoke 'print' in production code - lib\widgets\photo_upload_helper.dart:198:5 - avoid_print
+   info - Don't invoke 'print' in production code - lib\widgets\photo_upload_helper.dart:199:5 - avoid_print
+   info - Don't invoke 'print' in production code - lib\widgets\photo_upload_helper.dart:200:5 - avoid_print
+   info - 'WillPopScope' is deprecated and shouldn't be used. Use PopScope instead. The Android predictive back feature will not work with WillPopScope. This feature was deprecated after v3.12.0-1.0.pre - lib\widgets\photo_upload_helper.dart:206:29 - deprecated_member_use
+   info - Don't invoke 'print' in production code - lib\widgets\photo_upload_helper.dart:229:7 - avoid_print
+   info - Don't invoke 'print' in production code - lib\widgets\photo_upload_helper.dart:235:7 - avoid_print
+

@@ -1,0 +1,109 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // Helper function to check if user is authenticated
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+    
+    // Helper function to get user role from users collection
+    function getUserRole() {
+      return get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role;
+    }
+    
+    // Helper function to check if user is admin
+    function isAdmin() {
+      return isAuthenticated() && getUserRole() == 'admin';
+    }
+    
+    // Helper function to check if user is teacher
+    function isTeacher() {
+      return isAuthenticated() && getUserRole() == 'teacher';
+    }
+    
+    // Helper function to check if user is student
+    function isStudent() {
+      return isAuthenticated() && getUserRole() == 'student';
+    }
+    
+    // Users collection
+    match /users/{userId} {
+      // Allow users to read their own document
+      allow read: if isAuthenticated() && request.auth.uid == userId;
+      
+      // Allow admins to read and write all user documents
+      allow read, write: if isAdmin();
+      
+      // Allow teachers to read all users (to see student list)
+      allow read: if isTeacher();
+    }
+    
+    // Daily Status collection
+    match /dailyStatus/{statusId} {
+      // Allow teachers to read and write all daily status documents
+      allow read, write: if isTeacher();
+      
+      // Allow admins to read and write all daily status documents
+      allow read, write: if isAdmin();
+      
+      // Allow students to read their own daily status
+      allow read: if isStudent() && resource.data.studentId == request.auth.uid;
+    }
+    
+    // Weekly Plans collection
+    match /weeklyPlans/{planId} {
+      // Allow teachers to read and write all weekly plans
+      allow read, write: if isTeacher();
+      
+      // Allow admins to read and write all weekly plans
+      allow read, write: if isAdmin();
+    }
+    
+    // Chat messages collection
+    match /chats/{chatId} {
+      match /messages/{messageId} {
+        // Allow read if user is part of the chat (chatId contains their uid)
+        allow read: if isAuthenticated() && 
+                       (chatId.matches('.*' + request.auth.uid + '.*'));
+        
+        // Allow create if user is the sender
+        allow create: if isAuthenticated() && 
+                         request.resource.data.senderId == request.auth.uid;
+        
+        // Allow update for marking messages as read
+        allow update: if isAuthenticated() && 
+                         resource.data.receiverId == request.auth.uid;
+      }
+    }
+    
+    // Documents collection (PDFs for signing)
+    match /documents/{docId} {
+      // Admins can read and write all documents
+      allow read, write: if isAdmin();
+      
+      // Teachers can read documents in their organization
+      allow read: if isTeacher();
+    }
+    
+    // Signature Requests collection
+    match /signatureRequests/{requestId} {
+      // Admins can read and write all signature requests
+      allow read, write: if isAdmin();
+      
+      // Users can read their own signature requests
+      allow read: if isAuthenticated() && 
+                     resource.data.userId == request.auth.uid;
+      
+      // Users can update (sign) their own signature requests
+      allow update: if isAuthenticated() && 
+                       resource.data.userId == request.auth.uid &&
+                       request.resource.data.status == 'signed';
+    }
+    
+    // Default deny all other collections
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

@@ -1,0 +1,17 @@
+﻿Analyzing Inner Garden...                                       
+
+   info - Don't invoke 'print' in production code - lib\providers\auth_provider.dart:37:7 - avoid_print
+   info - Don't invoke 'print' in production code - lib\providers\auth_provider.dart:40:7 - avoid_print
+   info - Don't invoke 'print' in production code - lib\providers\auth_provider.dart:51:7 - avoid_print
+warning - The value of the local variable 'user' isn't used - lib\screens\admin\create_teacher_page.dart:37:15 - unused_local_variable
+   info - Don't invoke 'print' in production code - lib\screens\login_page.dart:31:7 - avoid_print
+   info - Don't invoke 'print' in production code - lib\screens\login_page.dart:32:7 - avoid_print
+   info - Don't invoke 'print' in production code - lib\screens\login_page.dart:39:7 - avoid_print
+   info - Don't invoke 'print' in production code - lib\screens\login_page.dart:40:7 - avoid_print
+   info - Don't invoke 'print' in production code - lib\screens\login_page.dart:44:9 - avoid_print
+   info - 'value' is deprecated and shouldn't be used. Use initialValue instead. This will set the initial value for the form field. This feature was deprecated after v3.33.0-1.0.pre - lib\screens\portals\teacher\weekly_plan\widgets\add_plan_dialog.dart:129:17 - deprecated_member_use
+   info - Don't invoke 'print' in production code - lib\services\chat_service.dart:167:7 - avoid_print
+   info - Don't invoke 'print' in production code - lib\services\cloud_functions_service.dart:93:7 - avoid_print
+   info - Don't invoke 'print' in production code - lib\services\photo_service.dart:323:7 - avoid_print
+warning - Unused import: '../services/auth_service.dart' - lib\utils\create_test_accounts.dart:4:8 - unused_import
+
