@@ -1,55 +1,102 @@
-# Lekker Kids: Engineering Retrospective
+# Lekker Kids
 
-**Project Type**: Multi-tenant Daycare Management SaaS
-**Role**: Junior Full-stack Engineer
-**Tech Stack**: Flutter, Firebase (Auth, Firestore, Functions, Storage), MVVM
+A discontinued multi-tenant daycare management system MVP. This project is preserved as an engineering portfolio piece.
+
+**Tech Stack:** Flutter (client), Firebase (Auth, Firestore, Cloud Functions, Storage)  
+**Architecture:** MVVM  
+**Status:** Discontinued
 
 ---
 
-### Project Positioning & Architecture
-Developed a comprehensive operational system to digitize administrative workflows (attendance, government reporting, communication) for early childhood education centers.
-*   **Architecture**: Adopted **MVVM** architecture to strictly separate UI code from business logic, ensuring testability and maintainability.
-*   **Multi-Tenancy**: Engineered a scalable SaaS infrastructure allowing multiple schools to operate in a single environment with strict data isolation.
-*   **Security**: Implemented **Role-Based Access Control (RBAC)** using Firebase Custom Claims (`schoolId`, `role`) and Firestore Security Rules, ensuring data security at the database level.
+## Problem & Users
 
-### Key Engineering Decisions & Challenges
+Daycare centers manage attendance, parent communication, and government reporting through a mix of paper forms, spreadsheets, and WhatsApp groups. This creates fragmented records and manual overhead.
 
-#### 1. Solving the N+1 Stream Problem (Scalability)
-*   **Problem**: Initially, the teacher dashboard subscribed to individual real-time streams for each student to track status. For a class of 20+ students, this created an **N+1 connection issue**, leading to excessive read operations and client-side battery drain.
-*   **Engineering Judgment**: Recognized that client-side joins are inefficient for real-time dashboards.
-*   **Solution**: **Data Denormalization**. Redesigned the data model to aggregate daily statuses or utilized efficient "IN" queries/Composite Indexes to batch fetch data. Optimized Firestore listeners to subscribe to collection-level updates rather than document-level.
-*   **Outcome**: Reduced dashboard reads from **O(N)** to **O(1)** per view refresh, significantly lowering Firebase costs and improving UI responsiveness.
+Lekker Kids was built to consolidate these workflows into a single system, targeting daycare operators with three user roles:
 
-#### 2. Single-Tenant to Multi-Tenant Migration (Architecture)
-*   **Context**: The product needed to pivot from a single-school prototype to a white-label SaaS platform.
-*   **Challenge**: Ensuring that a Teacher in School A could never access data from School B, without deploying separate backend instances.
-*   **Solution**: Implemented **Custom Claims** in Firebase Auth to embed `tenant_id` directly into the user's secure token. Configured Firestore Security Rules to validate `request.auth.token.schoolId == resource.data.schoolId` for every read/write.
-*   **Result**: Achieved strict tenant isolation at the infrastructure layer. Even if the frontend code had a bug, the database rules would prevent data leakage.
 
-#### 3. Operations-First Design (Product Engineering)
-*   **Assumption vs Reality**: Initial user interviews revealed that "fancy" social features were less valuable than reliable "administrative" tools.
-*   **Action**: Pivoted focus to **Data Consistency** and **Automated Reporting**.
-*   **Implementation**: built robust CSV export pipelines using Cloud Functions to handle large dataset aggregations for monthly usage reports, adhering to government standards.
+- **School Admin** – manages teachers and students within a school
+- **Teacher** – tracks attendance, uploads photos, creates weekly plans
+- **Parent** – views child status, receives photos, communicates with teachers
 
-### Engineering Mindset
-*   **Goal-Oriented Design**: **Goal -> Solution**. Avoided implementing features just because they are "standard" (e.g., complex chat) unless they solved a specific operational pain point (e.g., direct parent-teacher communication for incident reporting).
-*   **Root Cause Analysis**: When encountering bugs, focused on architectural root causes (e.g., "Why is the stream lagging?") rather than applying superficial hotfixes.
-*   **Pipeline Optimization**: Built an efficient photo upload pipeline (Picker → Local Compression → Storage → Cloud Function Trigger) to handle high-resolution media seamlessly.
+---
 
-### Project Status: Discontinued
-**Why?**
-*   **Market Dynamics**: Government reporting systems improved significantly, reducing the core value proposition of manual administrative digitisation.
-*   **Privacy Trust Barrier**: Identified significant friction in user adoption due to data privacy concerns with small/new vendors vs. established competitors.
-*   **ROI Assessment**: Concluded that achieving feature parity with mature incumbents would require resources exceeding the projected specialized market cap. Decided to sunset the project to focus on high-leverage learning.
+## Technical Architecture
 
-### What This Project Demonstrates
-*   **Engineering Capability**: Successfully architected and deployed a secure, multi-tenant SaaS solution from scratch.
-*   **Product Lifecycle Management**: Managed the full cycle from requirement gathering and architecture design to user feedback analysis and strategic deprecation.
-*   **Business Maturity**: Demonstrated the ability to detach emotionally from code to make objective business decisions (avoiding sunk cost fallacy).
+This structure was sufficient for a single-developer project,
+but some cross-cutting concerns (e.g. auth state propagation)
+were handled pragmatically rather than through strict abstraction.
 
-### AI-Assisted Development (Tooling)
+```
+View (Screens) → ViewModel (State) → Repository (Data) → Services (Firebase)
+```
 
-*   **Used AI-assisted IDEs as a productivity tool for boilerplate generation, refactoring suggestions, and syntax validation.
-*   **Treated AI output as a first draft, with all architectural decisions, data modeling, and security logic designed and reviewed manually.
-*   **Applied root-cause analysis when AI-generated solutions masked underlying issues (e.g., performance or data consistency problems).
-*   **Found that providing logs, error outputs, and constraints to AI produced more reliable debugging results than high-level descriptions.
+**Multi-tenancy** is implemented using Firebase Custom Claims. Each user token contains `schoolId` and `role` claims. Firestore Security Rules validate these claims on every read and write, ensuring tenant isolation at the database layer—not just the UI.
+
+**Role-based access control** uses the same claims mechanism. Sensitive write operations (user creation, role assignment) are centralized in Cloud Functions, which re-validate permissions server-side.
+
+---
+
+## Key Engineering Decisions
+
+### 1. Single-Tenant to Multi-Tenant Migration
+
+The initial prototype was a single-school app. When the scope expanded to support multiple schools under one deployment, the data model needed restructuring.
+
+**Approach:**
+- Introduced a hierarchical path: `organizations/{orgId}/schools/{schoolId}/...`
+- Embedded `schoolId` in user tokens via Custom Claims
+- Added `request.auth.token.schoolId == resource.data.schoolId` checks in Firestore Security Rules
+
+**Limitations:**
+- Custom Claims require a server-side call to update. Users must re-authenticate to see claim changes.
+- Security Rules complexity increased. Each new collection requires explicit rule writing.
+
+### 2. Solving the N+1 Real-Time Listener Problem
+
+The teacher dashboard initially subscribed to one Firestore listener per student to show real-time status. For a class of 20 students, this created 20 concurrent connections—an N+1 problem that scaled linearly with class size.
+
+**Symptoms:** High Firestore read counts, increased client battery usage, sluggish UI on larger classrooms.
+
+**Fix:** Denormalized the data model. Daily student statuses were aggregated into a single document per classroom-date combination. The dashboard now subscribes to one listener per view, reducing read complexity from O(N) to O(1).
+
+### 3. Operations-First Product Direction
+
+Early user interviews revealed that social features (photo sharing, messaging) were less valued than operational reliability (attendance accuracy, report generation). The product pivoted toward administrative tooling.
+
+**Result:** Built CSV export pipelines via Cloud Functions for monthly government reporting, instead of investing in real-time chat polish.
+
+---
+
+## Trade-offs & Limitations
+
+| Decision | Trade-off |
+|----------|-----------|
+| Defense-in-depth (UI + Security Rules) | Slower development velocity due to duplicate validation logic |
+| Denormalized data model | Write complexity increased; updates require touching multiple documents |
+| Firebase-only backend | No relational joins; data modeling requires careful planning |
+
+**Conscious scope cut:** Audit logging was deprioritized. Admin actions are not recorded, which would be required for compliance in a production system.
+
+---
+
+## Project Status
+
+**Discontinued.**
+
+Reasons:
+- Government reporting systems in the target market improved, reducing the value of third-party digitization
+- Trust barrier: daycare operators were hesitant to share child data with a new vendor
+- ROI assessment: Reaching feature parity with established competitors would require resources exceeding projected returns
+
+This was a business decision, not a technical failure. The codebase remains functional.
+
+---
+
+## How to Run
+
+This repository is for architectural reference only.
+Live demo access is not publicly available.
+
+If you would like to walk through the system behavior,
+please refer to the screenshots and architecture notes.
