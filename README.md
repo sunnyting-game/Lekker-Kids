@@ -1,6 +1,10 @@
+![Lekker Kids Demo](docs/LekkerKids.gif)
+
 # Lekker Kids
 
-A discontinued multi-tenant daycare management system MVP. This project is preserved as an engineering portfolio piece.
+A multi-tenant daycare management system MVP, built to explore real-world authorization, data isolation, and operational scalability challenges.
+This project is preserved as an engineering portfolio piece.
+
 
 **Tech Stack:** Flutter (client), Firebase (Auth, Firestore, Cloud Functions, Storage)  
 **Architecture:** MVVM  
@@ -89,7 +93,9 @@ Reasons:
 - Trust barrier: daycare operators were hesitant to share child data with a new vendor
 - ROI assessment: Reaching feature parity with established competitors would require resources exceeding projected returns
 
-This was a business decision, not a technical failure. The codebase remains functional.
+This was a business decision, not a technical failure. The project achieved its original technical goals, particularly around
+multi-tenancy, access control, and real-time data modeling.
+
 
 ---
 
